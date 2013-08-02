@@ -1,9 +1,11 @@
 
+COMP="$fg[cyan]%M"
+
 precmd()
 {
-	print -rP "$fg[cyan]%m: $fg[yellow]$(get_pwd)$(put_spacing)$(git_prompt_info)"
+	print -rP "$COMP $fg[yellow]$(get_pwd)$(put_spacing)$(git_prompt_info)"
 }
-export PROMPT='↬ '
+export PROMPT='↬  '
 
 
 get_pwd()
@@ -15,7 +17,7 @@ put_spacing()
 {
 	local git=$(git_prompt_info)
 	if [ ${#git} != 0 ]; then
-		((git=${#git} - 8))
+		((git=${#git} - 9))
 	else
 		git=0
 	fi
@@ -31,16 +33,16 @@ put_spacing()
 	echo $spacing
 }
 
+ZSH_THEME_GIT_PROMPT_PREFIX="[git:"
+ZSH_THEME_GIT_PROMPT_SUFFIX="]$reset_color"
+ZSH_THEME_GIT_PROMPT_DIRTY="$fg[red]+"
+ZSH_THEME_GIT_PROMPT_CLEAN="$fg[green]"
+
 git_prompt_info()
 {
 	ref=$(git symbolic-ref HEAD 2> /dev/null) || return
 	echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX$(current_branch)$ZSH_THEME_GIT_PROMPT_SUFFIX"
 }
-
-ZSH_THEME_GIT_PROMPT_PREFIX="[git:"
-ZSH_THEME_GIT_PROMPT_SUFFIX="]$reset_color"
-ZSH_THEME_GIT_PROMPT_DIRTY="$fg[red]+"
-ZSH_THEME_GIT_PROMPT_CLEAN="$fg[green]"
 
 
 
