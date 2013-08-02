@@ -1,7 +1,9 @@
 
-
-PROMPT='$fg[cyan]%m: $fg[yellow]$(get_pwd)$(put_spacing)$(git_prompt_info)
-$reset_color↬ '
+precmd()
+{
+	print -rP "$fg[cyan]%m: $fg[yellow]$(get_pwd)$(put_spacing)$(git_prompt_info)"
+}
+export PROMPT='↬ '
 
 
 get_pwd()
